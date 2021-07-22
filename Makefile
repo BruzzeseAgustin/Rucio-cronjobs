@@ -31,8 +31,8 @@ image:
 	docker build -t $(IMAGE) .
 
 push-image:
-	echo $TRAVIS_BRANCH
-	docker push $IMAGE/test:$TRAVIS_BRANCH
+	echo $(TRAVIS_BRANCH)
+	docker push $(IMAGE)/test:$(TRAVIS_BRANCH)
 
 
 .PHONY: 

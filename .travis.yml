@@ -1,6 +1,8 @@
 # make use of vm's 
 sudo: 'required'
 
+name: Build Rucio Cronjobs docker image
+
 # have the docker service set up (we'll
 # update it later)
 services:
