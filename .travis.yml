@@ -22,13 +22,31 @@ before_install:
 
 jobs:
   include:
-    - stage: test rse json
+    - stage: test rse
       script:
-        - 'make test_1'
+        - 'make test_rses'
         - 'make push-image'
-    - stage: test client json
+    - stage: test client
       script:
-        - 'make test_1'
+        - 'make test_clients'
+        - 'make push-image'
+    - stage: test fts 
+      script:
+        - 'make test_fts'
+        - 'make push-image'
+    - stage: test hermes
+      script:
+        - 'make test_hermes2'
+        - 'make push-image'
+    - stage: test admin
+      script:
+        - 'make test_admin'
+        - 'make push-image'
+    - stage: test monitoring 
+      script:
+        - 'make test_monitoring'
+        - 'make push-image'
+
 # only execute the following instructions in
 # the case of a success (failing at this point
 # won't mark the build as a failure).

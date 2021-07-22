@@ -1,22 +1,38 @@
 IMAGE := bruzzese/
 test:
 	true
-test_1:
+test_rses:
 	python ./.travis/json-validator.py --load_json ./rucio-sync-rses/docker/config/rse_repository.json
 	cd ./rucio-sync-rses/docker
-	docker-compose --file ./rucio-sync-rses/docker/Dockerfile up -d --build
+	docker-compose --file ./Dockerfile up -d --build
 
-test_2:
+test_clients:
 	python ./.travis/json-validator.py --load_json ./rucio-sync-clients/docker/config/account_repository.json
 	cd ./rucio-sync-clients/docker
-	docker-compose --file ./rucio-sync-clients/docker/Dockerfile up -d --build
+	docker-compose --file ./Dockerfile up -d --build
+
+test_fts:
+	cd ./fts-renew/docker
+	docker-compose --file ./Dockerfile up -d --build
+
+test_hermes2:
+	cd ./rucio-add-hermes2/docker
+	docker-compose --file ./Dockerfile up -d --build
+
+test_admin:
+	cd ./rucio-pic-admin/docker
+	docker-compose --file ./Dockerfile up -d --build
+
+test_monitoring:
+	cd ./rucio-pic-monitoring/docker
+	docker-compose --file ./Dockerfile up -d --build
 
 image:
 	docker build -t $(IMAGE) .
 
 push-image:
-	echo "$TRAVIS_BRANCH"
-	docker push "$TRAVIS_BRANCH"/test:"$TRAVIS_BRANCH"
+	echo $TRAVIS_BRANCH
+	docker push $IMAGE/test:$TRAVIS_BRANCH
 
 
 .PHONY: 
