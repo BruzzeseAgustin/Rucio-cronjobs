@@ -24,10 +24,10 @@ jobs:
   include:
     - stage: test rse json
       script:
-      - 'make test_1'
+        - 'make test_1'
     - stage: test client json
       script:
-      - 'make test_1'
+        - 'make test_1'
 # only execute the following instructions in
 # the case of a success (failing at this point
 # won't mark the build as a failure).
