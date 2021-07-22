@@ -1,4 +1,4 @@
-IMAGE := bruzzese/test
+IMAGE := bruzzese/
 test:
 	true
 test_1:
@@ -15,7 +15,8 @@ image:
 	docker build -t $(IMAGE) .
 
 push-image:
-	docker push $(IMAGE)
+	echo "$TRAVIS_BRANCH"
+	docker push "$TRAVIS_BRANCH"/test:"$TRAVIS_BRANCH"
 
 
 .PHONY: 

@@ -25,6 +25,7 @@ jobs:
     - stage: test rse json
       script:
         - 'make test_1'
+        - 'make push-image'
     - stage: test client json
       script:
         - 'make test_1'
