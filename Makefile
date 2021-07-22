@@ -15,7 +15,7 @@ test_clients:
 
 test_fts:
 	cd ./fts-renew/docker
-	docker-compose --file ./fts-renew/docker/config/Dockerfile up -d --build
+	docker-compose --file ./fts-renew/docker/Dockerfile up -d --build
 
 test_hermes2:
 	cd ./rucio-add-hermes2/docker
