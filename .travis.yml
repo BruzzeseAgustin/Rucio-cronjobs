@@ -22,9 +22,6 @@ before_install:
 
 jobs:
   include:
-    - stage: test
-      script:
-      - 'make test'
     - stage: test rse json
       script:
         - 'make test_1'
