@@ -24,11 +24,10 @@ jobs:
   include:
     - stage: test rse json
       script:
-      - python ./.travis/json-validator.py --load_json ./rucio-sync-rses/docker/config/rse_repository.json
+      - 'make test_1'
     - stage: test client json
       script:
-      - python ./.travis/json-validator.py --load_json ./rucio-sync-clients/docker/config/account_repository.json
-
+      - 'make test_1'
 # only execute the following instructions in
 # the case of a success (failing at this point
 # won't mark the build as a failure).
