@@ -35,8 +35,8 @@ setup_dependencies() {
   sudo apt install --only-upgrade docker-ce -y
 
   sudo pip install docker-compose || true
-  sudo pip install json
-  sudo pop install argparser
+  sudo pip install json || true 
+  sudo pop install argparser || true
   docker info
   docker-compose --version
 }
