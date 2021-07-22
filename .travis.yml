@@ -17,6 +17,7 @@ env:
 # installation scripts
 before_install:
   - './.travis/main.sh'
+  -  docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 
 # first execute the test suite.
 # after the test execution is done and didn't
@@ -32,7 +33,6 @@ jobs:
         - 'make test_rses'
         - docker ps --format '{{.Image}}' | head -1
         - export IMAGE_NAME=$(docker ps --format "{{.Image}}" | head -1)
-        - echo $IMAGE_NAME
         - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test client
