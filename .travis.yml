@@ -25,35 +25,41 @@ before_install:
 jobs:
   include:
     - stage: test rse
-      script:
+      env:
         - REPO_NAME=rucio-sync-rses
+      script:
         - 'make test_rses'
         - echo $IMAGE $REPO_NAME $TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test client
-      script:
+      env:
         - REPO_NAME=rucio-sync-clients
+      script:
         - 'make test_clients'
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test fts 
-      script:
+      env:
         - REPO_NAME=fts-renew
+      script:
         - 'make test_fts'
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test hermes
-      script:
+      env:
         - REPO_NAME=add-hermes-2
+      script:
         - 'make test_hermes2'
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test admin
-      script:
+      env:
         - REPO_NAME=rucio-admin
+      script:
         - 'make test_admin'
        
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test monitoring 
-      script:
+      env:
         - REPO_NAME=rucio-admin-monitoring
+      script:
         - 'make test_monitoring'
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
 
