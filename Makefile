@@ -29,8 +29,6 @@ test_monitoring:
 	cd ./rucio-pic-monitoring/docker
 	docker-compose --file ./rucio-pic-monitoring/docker/Dockerfile up -d --build
 
-
-
 ## =====================
 ## PUSH tasks
 ## =====================
