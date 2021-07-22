@@ -26,26 +26,32 @@ jobs:
   include:
     - stage: test rse
       script:
+	- REPO_NAME=rucio-sync-rses
         - 'make test_rses'
         - 'make push-image'
     - stage: test client
       script:
+	- REPO_NAME=rucio-sync-clients
         - 'make test_clients'
         - 'make push-image'
     - stage: test fts 
       script:
+	- REPO_NAME=fts-renew
         - 'make test_fts'
         - 'make push-image'
     - stage: test hermes
       script:
+	- REPO_NAME=add-hermes-2
         - 'make test_hermes2'
         - 'make push-image'
     - stage: test admin
       script:
+	- REPO_NAME=rucio-admin
         - 'make test_admin'
         - 'make push-image'
     - stage: test monitoring 
       script:
+	- REPO_NAME=rucio-admin-monitoring
         - 'make test_monitoring'
         - 'make push-image'
 
