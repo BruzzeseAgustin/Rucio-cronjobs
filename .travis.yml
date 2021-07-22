@@ -31,7 +31,8 @@ jobs:
       script:
         - 'make test_rses'
         - docker ps --format '{{.Image}}' | head -1
-        - export IMAGE_NAME="docker ps --format '{{.Image}}' | head -1"
+        - export IMAGE_NAME=$(docker ps --format "{{.Image}}" | head -1)
+        - echo $IMAGE_NAME
         - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test client
@@ -40,7 +41,7 @@ jobs:
       script:
         - 'make test_clients'
         - docker ps --format '{{.Image}}' | head -1
-        - export IMAGE_NAME="docker ps --format '{{.Image}}' | head -1"
+        - export IMAGE_NAME=$(docker ps --format "{{.Image}}" | head -1)
         - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test fts 
@@ -49,7 +50,7 @@ jobs:
       script:
         - 'make test_fts'
         - docker ps --format '{{.Image}}' | head -1
-        - export IMAGE_NAME="docker ps --format '{{.Image}}' | head -1"
+        - export IMAGE_NAME=$(docker ps --format "{{.Image}}" | head -1)
         - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test hermes
@@ -64,7 +65,7 @@ jobs:
       script:
         - 'make test_admin'
         - docker ps --format '{{.Image}}' | head -1
-        - export IMAGE_NAME="docker ps --format '{{.Image}}' | head -1"
+        - export IMAGE_NAME=$(docker ps --format "{{.Image}}" | head -1)
         - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test monitoring 
