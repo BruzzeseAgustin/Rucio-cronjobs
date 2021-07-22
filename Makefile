@@ -4,6 +4,7 @@ IMAGE := bruzzese
 ## CI tasks
 ## ====================
 test_rses:
+	export TEST_ENV=true
 	python ./.travis/json-validator.py --load_json ./rucio-sync-rses/docker/config/rse_repository.json
 	cd ./rucio-sync-rses/docker
 	docker-compose --file ./rucio-sync-rses/docker/Dockerfile up -d --build
@@ -33,6 +34,7 @@ test_monitoring:
 ## PUSH tasks
 ## =====================
 push-image:
+	echo $(TEST_ENV)
 	echo $(TRAVIS_BRANCH)
 	docker push $(IMAGE)/${REPO_NAME}:$(TRAVIS_BRANCH)
 
