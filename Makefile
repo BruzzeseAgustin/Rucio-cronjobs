@@ -34,7 +34,7 @@ test_monitoring:
 ## =====================
 push-image:
 	echo $(TRAVIS_BRANCH)
-	docker push $(IMAGE)/$(REPO_NAME):$(TRAVIS_BRANCH)
+	docker push $(IMAGE)/${REPO_NAME}:$(TRAVIS_BRANCH)
 
 .PHONY: 
 	image push-image test
