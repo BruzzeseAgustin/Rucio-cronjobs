@@ -30,7 +30,9 @@ jobs:
         - REPO_NAME=rucio-sync-rses
       script:
         - 'make test_rses'
-        - docker ps -a 
+        - docker ps -a | awk '{print $NF}' | grep -w "$containerName" | cat
+        - export IMAGE_NAME="docker ps -a | awk '{print $NF}' | grep -w "$containerName" | cat"
+        - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test client
       env:
