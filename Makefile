@@ -1,4 +1,3 @@
-IMAGE := bruzzese
 
 ## ====================
 ## CI tasks

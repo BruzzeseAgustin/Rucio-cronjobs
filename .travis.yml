@@ -11,6 +11,7 @@ services:
 # set enviromental variables: version, url, etc
 env:
   global:
+   - IMAGE=bruzzese
 
 # prepare the machine before any code
 # installation scripts
@@ -29,7 +30,6 @@ jobs:
         - REPO_NAME=rucio-sync-rses
       script:
         - 'make test_rses'
-        - export $REPO_NAME="rucio-sync-rses"
         - echo $IMAGE $REPO_NAME $TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test client
