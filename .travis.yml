@@ -28,32 +28,32 @@ jobs:
       script:
         - REPO_NAME=rucio-sync-rses
         - 'make test_rses'
-        - 'make push-image'
+        - docker push ${IMAGE}/${REPO_NAME}:${TRAVIS_BRANCH}
     - stage: test client
       script:
         - REPO_NAME=rucio-sync-clients
         - 'make test_clients'
-        - 'make push-image'
+        - docker push ${IMAGE}/${REPO_NAME}:${TRAVIS_BRANCH}
     - stage: test fts 
       script:
         - REPO_NAME=fts-renew
         - 'make test_fts'
-        - 'make push-image'
+        - docker push ${IMAGE}/${REPO_NAME}:${TRAVIS_BRANCH}
     - stage: test hermes
       script:
         - REPO_NAME=add-hermes-2
         - 'make test_hermes2'
-        - 'make push-image'
+        - docker push ${IMAGE}/${REPO_NAME}:${TRAVIS_BRANCH}
     - stage: test admin
       script:
         - REPO_NAME=rucio-admin
         - 'make test_admin'
-        - 'make push-image'
+        - docker push ${IMAGE}/${REPO_NAME}:${TRAVIS_BRANCH}
     - stage: test monitoring 
       script:
         - REPO_NAME=rucio-admin-monitoring
         - 'make test_monitoring'
-        - 'make push-image'
+        - docker push ${IMAGE}/${REPO_NAME}:${TRAVIS_BRANCH}
 
 # only execute the following instructions in
 # the case of a success (failing at this point
