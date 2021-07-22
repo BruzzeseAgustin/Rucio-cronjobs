@@ -30,8 +30,8 @@ jobs:
         - REPO_NAME=rucio-sync-rses
       script:
         - 'make test_rses'
-        - docker ps -a | awk '{print $NF}' | grep -w "$containerName" | cat
-        - export IMAGE_NAME="docker ps -a | awk '{print $NF}' | grep -w "$containerName" | cat"
+        - docker ps --format '{{.Image}}' | head -1
+        - export IMAGE_NAME="docker ps --format '{{.Image}}' | head -1"
         - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test client
@@ -39,12 +39,18 @@ jobs:
         - REPO_NAME=rucio-sync-clients
       script:
         - 'make test_clients'
+        - docker ps --format '{{.Image}}' | head -1
+        - export IMAGE_NAME="docker ps --format '{{.Image}}' | head -1"
+        - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test fts 
       env:
         - REPO_NAME=fts-renew
       script:
         - 'make test_fts'
+        - docker ps --format '{{.Image}}' | head -1
+        - export IMAGE_NAME="docker ps --format '{{.Image}}' | head -1"
+        - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test hermes
       env:
@@ -57,7 +63,9 @@ jobs:
         - REPO_NAME=rucio-admin
       script:
         - 'make test_admin'
-       
+        - docker ps --format '{{.Image}}' | head -1
+        - export IMAGE_NAME="docker ps --format '{{.Image}}' | head -1"
+        - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test monitoring 
       env:
