@@ -1,5 +1,6 @@
 IMAGE := bruzzese/test
-
+test:
+	true
 test_1:
         python ./.travis/json-validator.py --load_json ./rucio-sync-rses/docker/config/rse_repository.json
         cd ./rucio-sync-rses/docker
