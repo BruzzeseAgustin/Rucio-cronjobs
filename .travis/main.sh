@@ -36,7 +36,7 @@ setup_dependencies() {
 
   sudo pip install docker-compose || true
   sudo pip install json || true 
-  sudo pop install argparser || true
+  sudo pip install argparser || true
   docker info
   docker-compose --version
 }
