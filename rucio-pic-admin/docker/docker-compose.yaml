@@ -9,8 +9,14 @@ RUN curl -o /etc/yum.repos.d/EGI-trustanchors.repo http://repository.egi.eu/sw/p
 RUN yum -y install wget && yum clean all
 RUN yum -y install ca-certificates ca-policy-egi-core && yum clean all
 
-RUN yum install -y epel-release.noarch python python-setuptools python-dev python3-devel  gcc gcc libcurl-devel libcurl-openssl-devel openssl-devel python-urllib3 swig gcc-c++ make openssl-devel libpcre3 libpcre3-dev fts-client fts-rest-cli
+RUN yum install -y epel-release \
+	&& yum upgrade -y \
+	&& yum update -y \
+	&& yum install -y python python-setuptools python-dev python3-devel  gcc gcc libcurl-devel libcurl-openssl-devel openssl-devel swig gcc-c++ make openssl-devel libpcre3 libpcre3-dev fts-client fts-rest-cli \
+	&& yum clean all \
+	&& rm -rf /var/cache/yum/* 
 
+RUN yum install -y python-six python-ipaddress python-backports-ssl_match_hostname
 RUN yum upgrade -y && yum clean all
 RUN yum install -y nano git tree python3 && yum clean all
 RUN yum install -y gfal2-util gfal2-all gfal2-python3 gfal2-python
@@ -21,19 +27,19 @@ RUN git clone https://github.com/BruzzeseAgustin/Rucio-Clients-Scripts.git /Scri
 # PIC Rucio setup
 RUN python3 -m pip install --upgrade pip setuptools
 RUN rm -rf /usr/lib/python3.6/site-packages/ipaddress*
-RUN python3 -m pip install rucio-clients
+RUN python3 -m pip install rucio-clients \
+	&& python3 -m pip install j2cli psycopg2-binary \
+	&& python3 -m pip install cx_oracle==6.3.1 PyMySQL \
+	&& python3 -m pip install numpy \
+	&& python3 -m pip install pytz \
+	&& python3 -m pip install urllib3 \
+	&& python3 -m pip install graphyte \
+	&& python3 -m pip install wheel \
+	&& python3 -m pip install M2Crypto \
+	&& python3 -m pip install pycurl \
+	&& python3 -m pip install fts3 
 
-RUN python3 -m pip install j2cli psycopg2-binary
-RUN python3 -m pip install cx_oracle==6.3.1 PyMySQL
-RUN python3 -m pip install numpy
-RUN python3 -m pip install pytz
-RUN python3 -m pip install graphyte
-RUN python3 -m pip install wheel
-RUN python3 -m pip install M2Crypto
-RUN python3 -m pip install pycurl
-RUN python3 -m pip install fts3
-RUN python3 -m pip install fts3-rest-cli
-
+RUN yum install -y fts-rest-cli
 RUN wget https://files.pythonhosted.org/packages/e1/4e/bc06cf96a9871b1b465ec0438a1cd32395b8709490b7fd0b4c063b018f1a/fts3-rest-API-3.7.1.tar.gz#sha256=e1d9207d0addffef14821ad4b905f1c362e2f2ccebc66152ff937f7b109b0cd2 \
 	&& tar -xzf fts3-rest-API-3.7.1.tar.gz \
 	&& cd fts3-rest-API-3.7.1 \ 
