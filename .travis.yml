@@ -58,6 +58,8 @@ jobs:
         - REPO_NAME=add-hermes-2
       script:
         - 'make test_hermes2'
+        - export IMAGE_NAME=$(docker ps --format "{{.Image}}" | head -1)
+        - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
     - stage: test admin
       env:
@@ -73,6 +75,9 @@ jobs:
         - REPO_NAME=rucio-admin-monitoring
       script:
         - 'make test_monitoring'
+        - docker ps --format '{{.Image}}' | head -1
+        - export IMAGE_NAME=$(docker ps --format "{{.Image}}" | head -1)
+        - docker tag $IMAGE_NAME $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
         - docker push $IMAGE/$REPO_NAME:$TRAVIS_BRANCH
 
 # only execute the following instructions in
