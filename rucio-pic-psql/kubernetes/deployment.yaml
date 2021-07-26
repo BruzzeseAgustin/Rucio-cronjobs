@@ -7,7 +7,7 @@ metadata:
   labels:
     tier: data-2
 spec:
-  schedule: "* * * * *"
+  schedule: "0 */6 * * *"
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
   jobTemplate:
