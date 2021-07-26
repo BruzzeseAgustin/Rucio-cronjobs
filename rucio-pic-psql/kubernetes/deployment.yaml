@@ -1,0 +1,51 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: rucio-db-backup-2
+  namespace: prod-rucio-test
+  labels:
+    tier: data-2
+spec:
+  schedule: "0 */6 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          nodeSelector:
+            node: rucio
+          containers:
+          - name: postgres-2
+            image: bruzzese/rucio-psql-monitoring:1.23
+            imagePullPolicy: IfNotPresent
+            args:
+            - /bin/bash 
+            - -c
+            - echo "$RUCIO_DB_HOST -U $POSTGRES_USER $POSTGRES_DB $SSHPASS $RUCIO_DB_DUMP" && pg_dump -Z9 -Fc -h $RUCIO_DB_HOST -U $POSTGRES_USER $POSTGRES_DB | SSHPASS=$SSHPASS sshpass -e ssh -o StrictHostKeyChecking=no $SSHUSER@$SSHHOST "cat > /tmp/$RUCIO_DB_DUMP.`date +%Y-%m-%d-%H-%M`" ; 
+            resources:
+              limits:
+                cpu: 1
+                memory: 8Gi
+              requests:
+                cpu: 1
+                memory: 4Gi
+            env:
+            - name: RUCIO_DB_HOST
+              value: rucio-postgresql
+            - name: POSTGRES_DB
+              value: rucio
+            - name: POSTGRES_USER
+              value: rucio
+            - name: PGPASSWORD
+              value: secret
+            - name: RUCIO_DB_DUMP
+              value: rucio-db.dump
+            - name: SSHUSER
+              value: bruzzese
+            - name: SSHPASS
+              value: [need to be set]
+            - name: SSHHOST
+              value: rucio03.pic.es
